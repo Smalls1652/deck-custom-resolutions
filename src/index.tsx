@@ -14,6 +14,8 @@ import {
 import { VFC } from "react";
 import { FaShip } from "react-icons/fa";
 
+import patchGameProperties from "./patches/patchGameProperties";
+
 import logo from "../assets/logo.png";
 
 // interface AddMethodArgs {
@@ -59,7 +61,7 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
 
       <PanelSectionRow>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <img src={logo} />
+          <img src={logo} alt="Logo" />
         </div>
       </PanelSectionRow>
 
@@ -68,7 +70,7 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
           layout="below"
           onClick={() => {
             Router.CloseSideMenus();
-            Router.Navigate("/decky-plugin-test");
+            Router.Navigate("/deck-custom-resolutions");
           }}
         >
           Router
@@ -90,7 +92,8 @@ const DeckyPluginRouterTest: VFC = () => {
 };
 
 export default definePlugin((serverApi: ServerAPI) => {
-  serverApi.routerHook.addRoute("/decky-plugin-test", DeckyPluginRouterTest, {
+  const gamePropertiesPatch = patchGameProperties(serverApi);
+  serverApi.routerHook.addRoute("/deck-custom-resolutions", DeckyPluginRouterTest, {
     exact: true,
   });
 
@@ -99,7 +102,8 @@ export default definePlugin((serverApi: ServerAPI) => {
     content: <Content serverAPI={serverApi} />,
     icon: <FaShip />,
     onDismount() {
-      serverApi.routerHook.removeRoute("/decky-plugin-test");
+      serverApi.routerHook.removeRoute("/deck-custom-resolutions");
+      serverApi.routerHook.removePatch("/app/:appId/properties/general", gamePropertiesPatch);
     },
   };
 });
