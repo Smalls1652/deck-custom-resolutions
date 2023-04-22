@@ -1,10 +1,10 @@
 {
-  "name": "Example Plugin",
-  "author": "John Doe",
-  "flags": ["debug", "_root"],
+  "name": "Custom Resolutions",
+  "author": "Smalls1652",
+  "flags": ["debug"],
   "publish": {
-    "tags": ["template", "root"],
+    "tags": ["template"],
     "description": "Decky example plugin.",
-    "image": "https://opengraph.githubassets.com/1/SteamDeckHomebrew/PluginLoader"
+    "image": "https://opengraph.githubassets.com/1/Smalls1652/deck-custom-resolutions"
   }
 }
